@@ -143,7 +143,7 @@ function next() {
 	document.getElementById('adjustUpButton').style.display = 'none';
 	document.getElementById('adjustDownButton').style.display = 'none';
 
-	if (numCluesRevealed == NUM_CATEGORIES*NUM_CLUES) {
+	if (numCluesRevealed == actualNumberOfClues) {
 		endGame();
 	}
 }
@@ -191,6 +191,7 @@ function endGame() {
 }
 
 function generateClues() {
+	actualNumberOfClues = 0;
 	setDollarValues();
 	
 	var i = 0;
@@ -211,6 +212,7 @@ function generateClues() {
 			}
 			else {
 				document.getElementsByClassName("clue" + clueNum + "_cat" + catNum)[0].setAttribute("onclick", "showClue(" + clueNum + "," + catNum + ");");
+				actualNumberOfClues++;
 			}
 		}
 	}

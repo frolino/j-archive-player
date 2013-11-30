@@ -217,6 +217,7 @@
 			var expectedAnswer = "";
 			var score = 0;
 			var numCluesRevealed = 0;
+			var actualNumberOfClues = 0;
 
 			function setUpClues() {
 				for (var i = 0; i < NUM_CLUES; i++) {
