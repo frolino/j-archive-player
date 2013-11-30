@@ -52,8 +52,12 @@ function showClue(clue, cat) {
 		for (var i = 0; i < anchorTags.length; i++) {
 			var nextAnchor = anchorTags[i];
 			if (nextAnchor.hasAttribute("href")) {
-				var modifiedClueText = nextAnchor.getAttribute("href").replace(/MEDIA/, "media").replace(/\.WMV/, ".wmv").replace(/\.JPG/, ".jpg");
+				var modifiedClueText = nextAnchor.getAttribute("href").replace(/MEDIA/, "media").replace(/\.WMV/, ".wmv").replace(/\.JPG/, ".jpg").replace(/\.MP3/, ".mp3");
+				modifiedClueText = modifiedClueText.replace(/A\./, "a.");
+				modifiedClueText = modifiedClueText.replace(/HTTP/, "http");
+				modifiedClueText = modifiedClueText.replace(/J-ARCHIVE/, "j-archive");
 				nextAnchor.setAttribute("href", modifiedClueText);
+				nextAnchor.setAttribute("target", "_blank");
 			}
 		}
 	}
