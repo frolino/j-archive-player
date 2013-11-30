@@ -1,4 +1,5 @@
-				J! Archive Player
+J! Archive Player
+==================
 				
 Overview
 ---------
@@ -28,5 +29,4 @@ TODO
 -----
 
 - Allow user to input game number (from J! Archive)
-- Make links in clues open in a new tab
 - Smarter "question form" detector (i.e., What is, What are, etc.)
