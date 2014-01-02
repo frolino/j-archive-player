@@ -3,7 +3,7 @@ J! Archive Player
 				
 Overview
 ---------
-J! Archive Player is a PHP-based program that turns the J! Archive repository into playable Jeopardy rounds. This has been developed primarily as a Jeopardy! training tool. Future enhancements will focus on tracking statistical information that aspiring Jeopardy players may find pertinent.
+J! Archive Player is a PHP-based program that turns the J! Archive repository into playable Jeopardy! rounds. This has been developed primarily as a Jeopardy! training tool. Future enhancements will focus on tracking statistical information that aspiring Jeopardy! players may find pertinent.
 
 Documentation
 ---------------
