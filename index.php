@@ -32,6 +32,7 @@
 			position:relative;
 			border-style:solid;
 			border-color:black;
+			overflow-x:auto;
 			}
 
 			#board
@@ -250,10 +251,17 @@
 					document.getElementById("mainWrapper").style.marginRight = marginWidth + "px";
 				}
 			}
+			
+			function adjustClueBoardSize() {
+				var clueBoard = document.getElementById("clueBoard");
+				var widthOfClueBoxes = document.getElementById("board").offsetWidth;
+				
+				clueBoard.style.width = widthOfClueBoxes + "px";
+			}
 		</script>
 	</head>
 
-	<body onload="centerPage();setUpClues();">
+	<body onload="centerPage();setUpClues();adjustClueBoardSize();">
 		<div id="mainWrapper">
 			<div id="controls">
 				<button onclick="beginGame();" id="startButton">START</button>
