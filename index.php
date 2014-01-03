@@ -1,138 +1,32 @@
+<? 
+	include('base.php'); 
+?>
+
 <html>
 	<head>
-		<title>Jeopardy Game Generator</title>
-
-		<style type="text/css">
-			#mainWrapper
-			{
-			width:600px;
-			}
-
-			#mainHeader
-			{
-			text-align:center;
-			}
-
-			#headerTitle
-			{
-			font-weight:bold;
-			font-size:20px;
-			}
-
-			#mainFrame
-			{
-			color:white;
-			}
-
-			#mainBoard
-			{
-			//float:left;
-			//width:30%;
-			//margin-left:50px;
-			position:relative;
-			border-style:solid;
-			border-color:black;
-			overflow-x:auto;
-			}
-
-			#board
-			{
-			text-align:center;
-			}
-
-			#board td
-			{
-			text-align:center;
-			vertical-align:middle;
-			background-color:blue;
-			color:white;
-			font-weight:bold;
-			//width:100px;
-			width:16%;
-			height:75px;
-			}
-
-			.clue
-			{
-			cursor:pointer;
-			}
-
-			#clueBoard
-			{
-			background-color:blue;
-			position:absolute;
-			left:0px;
-			top:0px;
-			height:100%;
-			width:100%;
-			z-index:1;
-			}
-
-			#clueBoardTextContainer
-			{
-			height:50%;
-			padding-top:100px;
-			padding-left:10px;
-			padding-right:10px;
-			}
-
-			#clueBoardText
-			{
-			text-align:center;
-			vertical-align:middle;
-			}
-
-			#clueBoardText a:link, #clueBoardText a:visited, #clueBoardText a:active
-			{
-			color:white;
-			}
-
-			#clueBoardText a:hover
-			{
-			color:black;
-			}
-
-			#answerControls
-			{
-			text-align:center;
-			padding-top:50px;
-			display:none;
-			}
-
-			#nextControl
-			{
-			text-align:center;
-			padding-top:50px;
-			display:none;
-			}
+		<?
+		if (!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username'])) {
+			?>
+			<title>Jeopardy Game Generator</title>
 			
-			#adjustUpButton, #adjustDownButton
-			{
-			display:none;
-			}
+			<link rel="stylesheet" type="text/css" href="style/main.css"></link>
+			<?
+		} 
+		elseif (!empty($_POST['username']) && !empty($_POST['password'])) {
+			?>
+			<title>Jeopardy Game Generator - Logging In...</title>
 			
-			#adjustUpButton:disabled, #adjustDownButton:disabled
-			{
-			opacity:0.0;
-			}
-
-			#controls
-			{
-			//float:left;
-			//padding-left:100px;
-			//padding-right:100px;
-			padding-bottom:20px;
-			text-align:center;
-			color:black;
-			}
-
-			#scoreContainer
-			{
-			background-color:blue;
-			color:white;
-			font-weight:bold;
-			}
-		</style>
+			<link rel="stylesheet" type="text/css" href="style/login.css"></link>
+			<?
+		}
+		else {
+			?>
+			<title>Jeopardy Game Generator - Log In</title>
+			
+			<link rel="stylesheet" type="text/css" href="style/login.css"></link>
+			<?
+		}
+		?>
 
 		<?
 			//TODO: Include a statistics panel on the side
@@ -260,6 +154,10 @@
 			}
 		</script>
 	</head>
+
+<?
+if (!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username'])) {
+	?>
 
 	<body onload="centerPage();setUpClues();adjustClueBoardSize();">
 		<div id="mainWrapper">
@@ -417,4 +315,52 @@
 			</div>
 		</div>
 	</body>
+	
+	<?
+}
+elseif (!empty($_POST['username']) && !empty($_POST['password'])) {
+	$username = mysql_real_escape_string($_POST['username']);  
+    $password = md5(mysql_real_escape_string($_POST['password']));  
+      
+    $checklogin = mysql_query("SELECT * FROM users WHERE Username = '".$username."' AND Password = '".$password."'");  
+      
+    if(mysql_num_rows($checklogin) == 1)  
+    {  
+        $row = mysql_fetch_array($checklogin);  
+        $email = $row['EmailAddress'];  
+          
+        $_SESSION['Username'] = $username;  
+        $_SESSION['EmailAddress'] = $email;  
+        $_SESSION['LoggedIn'] = 1;  
+          
+        echo "<h1>Success</h1>";  
+        echo "<p>We are now redirecting you to the member area.</p>";  
+        echo "<meta http-equiv='refresh' content='2;index.php' />";  
+    }  
+    else  
+    {  
+        echo "<h1>Error</h1>";  
+        echo "<p>Sorry, your account could not be found. Please <a href=\"index.php\">click here to try again</a>.</p>";  
+    }
+}
+else {
+	?>
+	
+	<body>
+		<h1>J! Archive Player</h1>
+		      
+		<p>Please either login below, or <a href="register.php">click here to register</a>.</p>  
+	  
+		<form method="post" action="index.php" name="loginform" id="loginform">  
+			<fieldset>  
+				<label for="username">Username:</label><input type="text" name="username" id="username" /><br />  
+				<label for="password">Password:</label><input type="password" name="password" id="password" /><br />  
+				<input type="submit" name="login" id="login" value="Login" />  
+			</fieldset>  
+		</form>
+	</body>
+	
+	<?
+}	
+?>
 </html>
