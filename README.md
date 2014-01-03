@@ -41,5 +41,4 @@ Due to potential inaccuracies in comparing the user's answer with the "correct" 
 TODO
 -----
 
-- Allow user to input game number (from J! Archive)
 - Smarter "question form" detector (i.e., What is, What are, etc.)
