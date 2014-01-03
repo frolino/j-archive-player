@@ -3,9 +3,28 @@ body
 background-color:#C0C0C0	
 }
 
+#allWrapper
+{
+width:1200px;
+}
+
 #mainWrapper
 {
 width:600px;
+margin-left:305px;
+margin-bottom:10px;
+float:left;
+}
+
+#mainUserStats
+{
+border:double;
+width:300px;
+height:95%;
+float:left;
+position:fixed;
+left:0;
+overflow-y:auto;
 }
 
 #mainHeader
