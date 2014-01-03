@@ -28,7 +28,7 @@ After following the steps above, create an account by registering via register.p
 
 Running
 --------
-To run the program, you will first need to specify the game ID number (assigned by J! Archive) and the round (either "J" for "Jeopardy" or "DJ" for "Double Jeopardy") in the URL, as follows:
+To run the program, you will first need to specify the game ID number (assigned by J! Archive) and the round (either "J" for "Jeopardy" or "DJ" for "Double Jeopardy"). You can specify these using the form on the left statistics panel. You can also specify the same information in the URL, as follows:
 
 http://&lt;path_to_index>/index.php?id=&lt;game_id>&round=&lt;round_code>
 
