@@ -15,12 +15,14 @@ No installation is required. However, for the PHP code to run, you will need to 
 
 You also need to create a database (we recommed the name "jarp_db", but you can choose any name you want). Once you do so, modify the contents of base.php to include the name of your database, as well as the login credentials for the database. Finally, create a table called 'users' in your database by running the following SQL query:
 
+<pre>
 CREATE TABLE `users` (  
 `UserID` INT(25) NOT NULL AUTO_INCREMENT PRIMARY KEY ,  
 `Username` VARCHAR(65) NOT NULL ,  
 `Password` VARCHAR(32) NOT NULL ,  
 `EmailAddress` VARCHAR(255) NOT NULL  
 );
+</pre>
 
 After following the steps above, create an account by registering via register.php, and then log in by going to index.php.
 
