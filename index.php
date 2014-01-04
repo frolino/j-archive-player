@@ -102,6 +102,15 @@
 				array_push($answers, $newText);
 				$indexSoFar++;
 			}
+
+			//Pad the end of $answers array if necessary, with blank strings
+			//This code inherently assumes that since the foreach loop terminated at this point,
+			//the rest of the questions must have been unrevealed (i.e., the rest of the clues in the
+			//$questions array must be blank)
+			while ($indexSoFar < $NUM_CLUES*$NUM_CATEGORIES) {
+				array_push($answers, "");
+				$indexSoFar++;
+			}
 		?>
 		
 		<script type="text/javascript" src="js/answerChecker.js"></script>
