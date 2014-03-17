@@ -128,6 +128,9 @@
 			var score = 0;
 			var numCluesRevealed = 0;
 			var actualNumberOfClues = 0;
+			
+			var currentClue = -1;
+			var currentCat = -1;
 
 			function setUpClues() {
 				for (var i = 0; i < NUM_CLUES; i++) {
@@ -141,7 +144,7 @@
 							}
 							echo "if (i == ".$i.") {\n";
 							for ($j = 0; $j < $NUM_CATEGORIES; $j++) {
-								echo "\t\t\t\t\t\tclues[i][$j] = [\"".addcslashes(strtoupper($questions[$qCounter]), '"')."\", \"What is ".$answers[$qCounter]."\"];\n";
+								echo "\t\t\t\t\t\tclues[i][$j] = [\"".addcslashes(strtoupper($questions[$qCounter]), '"')."\", \"What is ".$answers[$qCounter]."\", null];\n";
 								$qCounter++;
 							}
 							echo "\t\t\t\t\t}\n";
@@ -205,13 +208,13 @@ if (!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username'])) {
 				You are currently playing the 
 				<? 
 					if (strcasecmp($round, "DJ") == 0) {
-						echo "Double Jeopardy";
+						echo "<span id=\"game-round\">Double Jeopardy</span>";
 					}
 					else {
-						echo "Jeopardy";
+						echo "<span id=\"game-round\">Jeopardy</span>";
 					}
 				?> 
-				round of Game #<? echo $gameID ?>, 
+				round of Game #<span id="game-id"><? echo $gameID ?></span>, 
 			</div>
 			
 			<div id="game_selection">

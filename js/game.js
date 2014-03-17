@@ -72,6 +72,9 @@ function showClue(clue, cat) {
 	numCluesRevealed++;
 	
 	document.getElementById('response').focus();
+	
+	currentClue = clue;
+	currentCat = cat;
 }
 
 function setDollarValues() {
@@ -106,6 +109,8 @@ function checkAnswer() {
 		document.getElementById("score").innerHTML = score;
 		document.getElementById('adjustDownButton').style.display = 'inline';
 		document.getElementById('adjustDownButton').disabled = false;
+		
+		clues[currentClue-1][currentCat-1][2] = "right"; //Answer for this clue is correct, so indicate this in the array so that it can be recorded after the game
 	}
 	else {
 		clueBoardText.innerHTML = "Wrong! The correct answer<br \>is \"" + expectedAnswer + "?\"";
@@ -113,6 +118,8 @@ function checkAnswer() {
 		document.getElementById("score").innerHTML = score;
 		document.getElementById('adjustUpButton').style.display = 'inline';
 		document.getElementById('adjustUpButton').disabled = false;
+		
+		clues[currentClue-1][currentCat-1][2] = "wrong"; //Answer for this clue is incorrect, so indicate this in the array so that it can be recorded after the game
 	}
 
 	updateScoreboard();
@@ -134,6 +141,8 @@ function pass() {
 	document.getElementById('nextControl').style.display = 'block';
 	
 	clueBoardText.innerHTML = "The correct answer<br \>is \"" + expectedAnswer + "?\"";
+	
+	clues[currentClue-1][currentCat-1][2] = "passed"
 }
 
 function next() {
@@ -154,6 +163,8 @@ function adjustUp() {
 	//Undo the reduction, then award the points
 	score += 2*valueChosen;
 	updateScoreboard();
+	
+	clues[currentClue-1][currentCat-1][2] = "right";
 }
 
 function adjustDown() {
@@ -162,6 +173,8 @@ function adjustDown() {
 	//Undo the increase, then reduce the points
 	score -= 2*valueChosen;
 	updateScoreboard();
+	
+	clues[currentClue-1][currentCat-1][2] = "wrong";
 }
 
 function updateScoreboard() {
@@ -184,6 +197,9 @@ function endGame() {
 	else {
 		boardText.innerHTML = "You finished the game with $" + score + ". Try harder next time.";
 	}
+	
+	//Send the game data to the server to update the user's progress
+	updateProgress();
 
 	gameInProgress = false;
 	document.getElementById('startButton').innerHTML = 'PLAY AGAIN';
@@ -216,4 +232,43 @@ function generateClues() {
 			}
 		}
 	}
+}
+
+/**
+ * Send the game data to the server
+ * 
+ * Source: http://stackoverflow.com/questions/9713058/sending-post-data-with-a-xmlhttprequest
+ */
+function updateProgress() {
+	var http = new XMLHttpRequest();
+	var url = "updateprogress.php";
+	var params = "score=" + score + "&gameid=" + document.getElementById("game-id").innerHTML;
+	if (document.getElementById("game-round").innerHTML == "Double Jeopardy") {
+		params += "&round=DJ";
+	}
+	else {
+		params += "&round=J";
+	}
+	for (var i = 1; i <= NUM_CLUES; i++) {
+		for (var j = 1; j <= NUM_CATEGORIES; j++) {
+			if (clues[i-1][j-1][0] != "") {
+				params += "&clue" + i + "_" + j + "=" + clues[i-1][j-1][2];
+			}
+			else {
+				params += "&clue" + i + "_" + j + "=null";
+			}
+		}
+	}
+	http.open("POST", url, true);
+	
+	//Send the proper header information along with the request
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	http.setRequestHeader("Content-length", params.length);
+	http.setRequestHeader("Connection", "close");
+	
+	http.onreadystatechange = function() {//Call a function when the state changes
+		//TODO: Alert user when game progress has been updated/recorded
+	}
+	
+	http.send(params);
 }

@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
 
 	<head>
-		<title>User Management System (Tom Cameron for NetTuts)</title>  
+		<title>Jeopardy Game Generator - Register</title>  
 		
 		<link rel="stylesheet" href="style/register.css" type="text/css" />  
 	</head>  
