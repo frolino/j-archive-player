@@ -11,7 +11,9 @@ The documentation can be found in GitHub
 
 Installation
 -------------
-For the PHP code to run, you will need to install a web server that includes MySQL and PHP (Apache would work fine). Once you have these installed, you can run the install file by going to http://&lt;path_to_install>/install.php, where &lt;path_to_install> refers to the path leading to (and including) the folder containing the install.php file. This PHP script creates the MySQL tables necessary to run the web application.
+For the PHP code to run, you will need to install a web server that includes MySQL and PHP (Apache would work fine). 
+
+Once you have these installed, you need to create a database (we recommend the name "jarp_db", but you can choose any name you want). Once you do so, modify the contents of base.php, install.php, and updateprogress.php to include the name of your database, as well as the login credentials for the database. Then, run the install file by going to http://&lt;path_to_install>/install.php, where &lt;path_to_install> refers to the path leading to (and including) the folder containing the install.php file. This PHP script creates the MySQL tables necessary to run the web application.
 
 After following the steps above, create an account by registering via register.php, and then log in by going to index.php.
 
